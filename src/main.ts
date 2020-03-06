@@ -16,7 +16,7 @@ const run = async(): Promise<void> => {
 		return;
 	}
 
-	await execute(Utils.getOctokit(), context);
+	await execute(logger, Utils.getOctokit(), context);
 };
 
 run().catch(error => {

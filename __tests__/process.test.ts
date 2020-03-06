@@ -1,17 +1,23 @@
 /* eslint-disable no-magic-numbers */
 import { resolve } from 'path';
 import nock from 'nock';
+import { Logger } from '@technote-space/github-action-helper';
 import { testEnv, disableNetConnect, getApiFixture, getOctokit, generateContext, spyOnStdout, stdoutCalledWith } from '@technote-space/github-action-test-helper';
 import { execute } from '../src/process';
 
 const rootDir     = resolve(__dirname, '..');
 const fixturesDir = resolve(__dirname, 'fixtures');
 const context     = generateContext({owner: 'hello', repo: 'world', sha: '1234567890'});
+const logger      = new Logger();
 
 let canNpmPublishResult = Promise.resolve();
 jest.mock('can-npm-publish', () => ({
 	canNpmPublish: jest.fn(() => canNpmPublishResult),
 }));
+
+beforeEach(() => {
+	Logger.resetForTesting();
+});
 
 describe('execute', () => {
 	testEnv(rootDir);
@@ -30,10 +36,11 @@ describe('execute', () => {
 			})
 			.reply(201, () => getApiFixture(fixturesDir, 'repos.status.create'));
 
-		await execute(getOctokit(), context);
+		await execute(logger, getOctokit(), context);
 
 		expect(fn).toBeCalledTimes(1);
 		stdoutCalledWith(mockStdout, [
+			'> passed',
 			'::set-output name=result::passed',
 		]);
 	});
@@ -54,11 +61,12 @@ describe('execute', () => {
 			})
 			.reply(201, () => getApiFixture(fixturesDir, 'repos.status.create'));
 
-		await execute(getOctokit(), context);
+		await execute(logger, getOctokit(), context);
 
 		expect(fn).toBeCalledTimes(1);
 		stdoutCalledWith(mockStdout, [
-			'__error__"test"',
+			'::error::test',
+			'> failed',
 			'::set-output name=result::failed',
 		]);
 	});
@@ -80,10 +88,11 @@ describe('execute', () => {
 			})
 			.reply(201, () => getApiFixture(fixturesDir, 'repos.status.create'));
 
-		await execute(getOctokit(), context);
+		await execute(logger, getOctokit(), context);
 
 		expect(fn).toBeCalledTimes(1);
 		stdoutCalledWith(mockStdout, [
+			'> failed',
 			'::set-output name=result::failed',
 		]);
 	});
