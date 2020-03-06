@@ -14,9 +14,10 @@ GitHub Actions to check if it can be published to npm.
 <details>
 <summary>Details</summary>
 
-- [Setup](#setup)
-  - [yarn](#yarn)
-  - [npm](#npm)
+- [Usage](#usage)
+- [Screenshots](#screenshots)
+- [Options](#options)
+- [Outputs](#outputs)
 - [Author](#author)
 
 </details>
@@ -35,6 +36,7 @@ jobs:
     runs-on: ubuntu-latest
     if: startsWith(github.head_ref, 'release/')
     steps:
+      - uses: actions/checkout@v2
       - uses: technote-space/can-npm-publish-action@v1
 ```
 
