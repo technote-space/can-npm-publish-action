@@ -36,6 +36,7 @@ jobs:
     runs-on: ubuntu-latest
     if: startsWith(github.head_ref, 'release/')
     steps:
+      - uses: actions/checkout@v2
       - uses: technote-space/can-npm-publish-action@v1
 ```
 
