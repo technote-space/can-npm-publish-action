@@ -1,10 +1,10 @@
 import { Context } from '@actions/github/lib/context';
 import { getInput, setOutput } from '@actions/core';
 import { Octokit } from '@octokit/rest';
-import { Utils } from '@technote-space/github-action-helper';
+import { Utils, Logger } from '@technote-space/github-action-helper';
 import { canNpmPublish } from 'can-npm-publish';
 
-export const execute = async(octokit: Octokit, context: Context): Promise<void> => {
+export const execute = async(logger: Logger, octokit: Octokit, context: Context): Promise<void> => {
 	const verbose = Utils.getBoolValue(getInput('VERBOSE'));
 	await canNpmPublish(getInput('PACKAGE_PATH'), {verbose}).then(async() => {
 		await octokit.repos.createStatus({
@@ -13,10 +13,11 @@ export const execute = async(octokit: Octokit, context: Context): Promise<void> 
 			state: 'success',
 			context: 'can-npm-publish-action',
 		});
+		logger.info('passed');
 		setOutput('result', 'passed');
 	}).catch(async error => {
 		if (verbose) {
-			console.error(error.message);
+			logger.error(error.message);
 		}
 
 		await octokit.repos.createStatus({
@@ -26,6 +27,7 @@ export const execute = async(octokit: Octokit, context: Context): Promise<void> 
 			description: error.message,
 			context: 'can-npm-publish-action',
 		});
+		logger.info('failed');
 		setOutput('result', 'failed');
 	});
 };
