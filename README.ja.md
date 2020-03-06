@@ -18,6 +18,8 @@ npm に公開可能かチェックする`GitHub Actions`です。
 
 - [使用方法](#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95)
 - [スクリーンショット](#%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88)
+  - [Passed](#passed)
+  - [Failed](#failed)
 - [オプション](#%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3)
 - [Outputs](#outputs)
 - [Author](#author)

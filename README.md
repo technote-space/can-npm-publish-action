@@ -17,7 +17,9 @@ GitHub Actions to check if it can be published to npm.
 <summary>Details</summary>
 
 - [Usage](#usage)
-- [Screenshot](#screenshot)
+- [Screenshots](#screenshots)
+  - [Passed](#passed)
+  - [Failed](#failed)
 - [Options](#options)
 - [Outputs](#outputs)
 - [Author](#author)
