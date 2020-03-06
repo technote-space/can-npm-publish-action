@@ -7,7 +7,8 @@
 
 *Read this in other languages: [English](README.md), [日本語](README.ja.md).*
 
-npm に公開可能かチェックする`GitHub Actions`です。
+npm に公開可能かチェックする`GitHub Actions`です。  
+このアクションは [can-npm-publish](https://github.com/azu/can-npm-publish) を使用します。
 
 ## Table of Contents
 

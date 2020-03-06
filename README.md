@@ -7,7 +7,8 @@
 
 *Read this in other languages: [English](README.md), [日本語](README.ja.md).*
 
-GitHub Actions to check if it can be published to npm.
+GitHub Actions to check if it can be published to npm.  
+This action uses [can-npm-publish](https://github.com/azu/can-npm-publish).
 
 ## Table of Contents
 
