@@ -1,4 +1,3 @@
-# https://help.github.com/ja/articles/metadata-syntax-for-github-actions
 name: Can npm publish action
 
 description: GitHub Actions to check if it can be published to npm.
@@ -23,12 +22,9 @@ inputs:
 #    description: action result
 
 branding:
-  # https://feathericons.com/
-  icon: 'package'
-  color: 'orange'
+  icon: 'check-circle'
+  color: 'green'
 
 runs:
   using: node12
   main: lib/main.js
-#  post: lib/post.js
-#  post-if: 'success()'
