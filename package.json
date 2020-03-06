@@ -1,6 +1,6 @@
 {
   "name": "@technote-space/can-npm-publish-action",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "GitHub Actions to check if it can be published t npm.",
   "author": {
     "name": "Technote",
