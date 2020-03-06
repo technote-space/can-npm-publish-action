@@ -7,7 +7,8 @@
 
 *Read this in other languages: [English](README.md), [日本語](README.ja.md).*
 
-GitHub Actions to check if it can be published to npm.
+GitHub Actions to check if it can be published to npm.  
+This action uses [can-npm-publish](https://github.com/azu/can-npm-publish).
 
 ## Table of Contents
 
@@ -17,7 +18,9 @@ GitHub Actions to check if it can be published to npm.
 <summary>Details</summary>
 
 - [Usage](#usage)
-- [Screenshot](#screenshot)
+- [Screenshots](#screenshots)
+  - [Passed](#passed)
+  - [Failed](#failed)
 - [Options](#options)
 - [Outputs](#outputs)
 - [Author](#author)
@@ -42,8 +45,14 @@ jobs:
       - uses: technote-space/can-npm-publish-action@v1
 ```
 
-## Screenshot
-![Checks](https://raw.githubusercontent.com/technote-space/can-npm-publish-action/images/screenshot.png?token=AJQQGTPZVHF3SZ2BXWMWDR26NPMGQ)
+## Screenshots
+### Passed
+![Checks](https://raw.githubusercontent.com/technote-space/can-npm-publish-action/images/screenshot-1.png)
+
+### Failed
+![Error1](https://raw.githubusercontent.com/technote-space/can-npm-publish-action/images/screenshot-2.png)
+
+![Error2](https://raw.githubusercontent.com/technote-space/can-npm-publish-action/images/screenshot-3.png)
 
 ## Options
 | name | description | default | required | e.g. |
