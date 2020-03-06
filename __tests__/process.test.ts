@@ -18,7 +18,8 @@ describe('execute', () => {
 	disableNetConnect(nock);
 
 	it('should be success', async() => {
-		const fn = jest.fn();
+		const fn         = jest.fn();
+		const mockStdout = spyOnStdout();
 
 		nock('https://api.github.com')
 			.persist()
@@ -32,6 +33,9 @@ describe('execute', () => {
 		await execute(getOctokit(), context);
 
 		expect(fn).toBeCalledTimes(1);
+		stdoutCalledWith(mockStdout, [
+			'::set-output name=result::passed',
+		]);
 	});
 
 	it('should be failure', async() => {
@@ -55,6 +59,7 @@ describe('execute', () => {
 		expect(fn).toBeCalledTimes(1);
 		stdoutCalledWith(mockStdout, [
 			'__error__"test"',
+			'::set-output name=result::failed',
 		]);
 	});
 
@@ -78,6 +83,8 @@ describe('execute', () => {
 		await execute(getOctokit(), context);
 
 		expect(fn).toBeCalledTimes(1);
-		stdoutCalledWith(mockStdout, []);
+		stdoutCalledWith(mockStdout, [
+			'::set-output name=result::failed',
+		]);
 	});
 });
