@@ -7,7 +7,8 @@
 
 *Read this in other languages: [English](README.md), [日本語](README.ja.md).*
 
-npm に公開可能かチェックする`GitHub Actions`です。
+npm に公開可能かチェックする`GitHub Actions`です。  
+このアクションは [can-npm-publish](https://github.com/azu/can-npm-publish) を使用します。
 
 ## Table of Contents
 
@@ -18,6 +19,8 @@ npm に公開可能かチェックする`GitHub Actions`です。
 
 - [使用方法](#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95)
 - [スクリーンショット](#%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88)
+  - [Passed](#passed)
+  - [Failed](#failed)
 - [オプション](#%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3)
 - [Outputs](#outputs)
 - [Author](#author)
@@ -43,7 +46,13 @@ jobs:
 ```
 
 ## スクリーンショット
-![Checks](https://raw.githubusercontent.com/technote-space/can-npm-publish-action/images/screenshot.png?token=AJQQGTPZVHF3SZ2BXWMWDR26NPMGQ)
+### Passed
+![Checks](https://raw.githubusercontent.com/technote-space/can-npm-publish-action/images/screenshot-1.png)
+
+### Failed
+![Error1](https://raw.githubusercontent.com/technote-space/can-npm-publish-action/images/screenshot-2.png)
+
+![Error2](https://raw.githubusercontent.com/technote-space/can-npm-publish-action/images/screenshot-3.png)
 
 ## オプション
 | name | description | default | required | e.g. |
