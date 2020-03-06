@@ -1,13 +1,29 @@
 import { Context } from '@actions/github/lib/context';
+import { getInput } from '@actions/core';
 import { Octokit } from '@octokit/rest';
-import { Logger, Command } from '@technote-space/github-action-helper';
-import { getPayload } from './utils/misc';
+import { Utils } from '@technote-space/github-action-helper';
+import { canNpmPublish } from 'can-npm-publish';
 
-export const execute = async(logger: Logger, octokit: Octokit, context: Context): Promise<void> => {
-	console.log(getPayload(context));
+export const execute = async(octokit: Octokit, context: Context): Promise<void> => {
+	const verbose = Utils.getBoolValue(getInput('VERBOSE'));
+	await canNpmPublish(getInput('PACKAGE_PATH'), {verbose}).then(async() => {
+		await octokit.repos.createStatus({
+			...context.repo,
+			sha: context.sha,
+			state: 'success',
+			context: 'can-npm-publish-action',
+		});
+	}).catch(async error => {
+		if (verbose) {
+			console.error(error.message);
+		}
 
-	const command = new Command(logger);
-	await command.execAsync({
-		command: 'ls -lat',
+		await octokit.repos.createStatus({
+			...context.repo,
+			sha: context.sha,
+			state: 'failure',
+			description: error.message,
+			context: 'can-npm-publish-action',
+		});
 	});
 };
