@@ -14,9 +14,7 @@ GitHub Actions to check if it can be published t npm.
 <details>
 <summary>Details</summary>
 
-- [Setup](#setup)
-  - [yarn](#yarn)
-  - [npm](#npm)
+- [Usage](#usage)
 - [Author](#author)
 
 </details>
