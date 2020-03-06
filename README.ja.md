@@ -7,7 +7,7 @@
 
 *Read this in other languages: [English](README.md), [日本語](README.ja.md).*
 
-GitHub Actions to check if it can be published to npm.
+npm に公開可能かチェックする`GitHub Actions`です。
 
 ## Table of Contents
 
@@ -16,17 +16,17 @@ GitHub Actions to check if it can be published to npm.
 <details>
 <summary>Details</summary>
 
-- [Usage](#usage)
-- [Screenshot](#screenshot)
-- [Options](#options)
+- [使用方法](#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95)
+- [スクリーンショット](#%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88)
+- [オプション](#%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3)
 - [Outputs](#outputs)
 - [Author](#author)
 
 </details>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## Usage
-e.g. `.github/workflows/check-publish.yml`
+## 使用方法
+例：`.github/workflows/check-publish.yml`
 ```yaml
 on: pull_request
 
@@ -42,15 +42,15 @@ jobs:
       - uses: technote-space/can-npm-publish-action@v1
 ```
 
-## Screenshot
+## スクリーンショット
 ![Checks](https://raw.githubusercontent.com/technote-space/can-npm-publish-action/images/screenshot.png?token=AJQQGTPZVHF3SZ2BXWMWDR26NPMGQ)
 
-## Options
+## オプション
 | name | description | default | required | e.g. |
 |:---:|:---|:---:|:---:|:---:|
-| PACKAGE_PATH | Directory or package.json path | | | `assets/package.json` |
-| VERBOSE | Whether to show detail of errors | `true` | | `false` |
-| GITHUB_TOKEN | Access token | `${{github.token}}` | true | `${{secrets.ACCESS_TOKEN}}` |
+| PACKAGE_PATH | ディレクトリ または package.json へのパス | | | `assets/package.json` |
+| VERBOSE | エラーの詳細を表示するかどうか | `true` | | `false` |
+| GITHUB_TOKEN | アクセストークン | `${{github.token}}` | true | `${{secrets.ACCESS_TOKEN}}` |
 
 ## Outputs
 | name | description | e.g. |

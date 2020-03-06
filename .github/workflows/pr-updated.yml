@@ -1,6 +1,4 @@
-on:
-  pull_request:
-    types: [opened, synchronize]
+on: pull_request
 
 name: Pull Request updated
 
@@ -70,3 +68,11 @@ jobs:
           BRANCH_PREFIX: release/
           NEXT_VERSION: ${{ env.NEXT_VERSION }}
         if: env.NEXT_VERSION
+
+  checkPublish:
+    name: Check publish
+    runs-on: ubuntu-latest
+    if: "github.event.pull_request.head.user.id == github.event.pull_request.base.user.id && startsWith(github.head_ref, 'release/')"
+    steps:
+      - uses: actions/checkout@v2
+      - uses: technote-space/can-npm-publish-action@gh-actions

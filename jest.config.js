@@ -1,6 +1,6 @@
 module.exports = {
 	clearMocks: true,
-	moduleFileExtensions: ['js', 'ts'],
+	moduleFileExtensions: ['js', 'ts', 'json'],
 	setupFiles: ['<rootDir>/jest.setup.ts'],
 	testEnvironment: 'node',
 	testMatch: ['**/*.test.ts'],
