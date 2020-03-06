@@ -1,3 +1,4 @@
+import { resolve } from 'path';
 import { Context } from '@actions/github/lib/context';
 import { getInput, setOutput } from '@actions/core';
 import { Octokit } from '@octokit/rest';
@@ -16,7 +17,7 @@ export const execute = async(logger: Logger, octokit: Octokit, context: Context)
 		context: STATUS_CONTEXT,
 	});
 	await (new GitHelper(logger)).checkout(Utils.getWorkspace(), context);
-	await canNpmPublish(getInput('PACKAGE_PATH') || undefined, {verbose}).then(async() => {
+	await canNpmPublish(resolve(Utils.getWorkspace(), getInput('PACKAGE_PATH')), {verbose}).then(async() => {
 		await octokit.repos.createStatus({
 			...context.repo,
 			sha: getHeadSha(context),
