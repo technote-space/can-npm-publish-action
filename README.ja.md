@@ -43,7 +43,13 @@ jobs:
 ```
 
 ## スクリーンショット
-![Checks](https://raw.githubusercontent.com/technote-space/can-npm-publish-action/images/screenshot.png?token=AJQQGTPZVHF3SZ2BXWMWDR26NPMGQ)
+### Passed
+![Checks](https://raw.githubusercontent.com/technote-space/can-npm-publish-action/images/screenshot-1.png)
+
+### Failed
+![Error1](https://raw.githubusercontent.com/technote-space/can-npm-publish-action/images/screenshot-2.png)
+
+![Error2](https://raw.githubusercontent.com/technote-space/can-npm-publish-action/images/screenshot-3.png)
 
 ## オプション
 | name | description | default | required | e.g. |

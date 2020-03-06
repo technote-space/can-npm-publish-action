@@ -42,8 +42,14 @@ jobs:
       - uses: technote-space/can-npm-publish-action@v1
 ```
 
-## Screenshot
-![Checks](https://raw.githubusercontent.com/technote-space/can-npm-publish-action/images/screenshot.png?token=AJQQGTPZVHF3SZ2BXWMWDR26NPMGQ)
+## Screenshots
+### Passed
+![Checks](https://raw.githubusercontent.com/technote-space/can-npm-publish-action/images/screenshot-1.png)
+
+### Failed
+![Error1](https://raw.githubusercontent.com/technote-space/can-npm-publish-action/images/screenshot-2.png)
+
+![Error2](https://raw.githubusercontent.com/technote-space/can-npm-publish-action/images/screenshot-3.png)
 
 ## Options
 | name | description | default | required | e.g. |
