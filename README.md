@@ -5,7 +5,7 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/technote-space/can-npm-publish-action/badge)](https://www.codefactor.io/repository/github/technote-space/can-npm-publish-action)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/technote-space/can-npm-publish-action/blob/master/LICENSE)
 
-GitHub Actions to check if it can be published t npm.
+GitHub Actions to check if it can be published to npm.
 
 ## Table of Contents
 

@@ -1,7 +1,7 @@
 # https://help.github.com/ja/articles/metadata-syntax-for-github-actions
 name: Can npm publish action
 
-description: GitHub Actions to check if it can be published t npm.
+description: GitHub Actions to check if it can be published to npm.
 
 author: technote-space
 
@@ -14,7 +14,7 @@ inputs:
     description: directory or pacakge.json path.
     required: false
   VERBOSE:
-    description: show detail of errors.
+    description: Whether to show detail of errors.
     default: 'true'
     required: false
 
