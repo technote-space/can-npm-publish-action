@@ -19,7 +19,7 @@ export const execute = async(logger: Logger, octokit: Octokit, context: Context)
 			...context.repo,
 			sha: getHeadSha(context),
 			state: 'success',
-			description: 'Ready for publish',
+			description: 'Ready for publishing',
 			context: STATUS_CONTEXT,
 		});
 		logger.info('passed');
