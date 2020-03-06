@@ -1,0 +1,34 @@
+# https://help.github.com/ja/articles/metadata-syntax-for-github-actions
+name: Can npm publish action
+
+description: GitHub Actions to check if it can be published t npm.
+
+author: technote-space
+
+inputs:
+  GITHUB_TOKEN:
+    description: Secret GitHub API token to use for making API requests.
+    default: ${{ github.token }}
+    required: true
+  PACKAGE_PATH:
+    description: directory or pacakge.json path.
+    required: false
+  VERBOSE:
+    description: show detail of errors.
+    default: 'true'
+    required: false
+
+#outputs:
+#  result:
+#    description: action result
+
+branding:
+  # https://feathericons.com/
+  icon: 'package'
+  color: 'orange'
+
+runs:
+  using: node12
+  main: lib/main.js
+#  post: lib/post.js
+#  post-if: 'success()'
