@@ -1,23 +1,20 @@
-import { resolve } from 'path';
 import { Context } from '@actions/github/lib/context';
 import { getInput, setOutput } from '@actions/core';
 import { Octokit } from '@octokit/rest';
-import { Utils, GitHelper, Logger } from '@technote-space/github-action-helper';
+import { Utils, Logger } from '@technote-space/github-action-helper';
 import { canNpmPublish } from 'can-npm-publish';
 import { STATUS_CONTEXT } from './constant';
 
 export const getHeadSha = (context: Context): string => context.payload.pull_request?.head.sha ?? '';
 
 export const execute = async(logger: Logger, octokit: Octokit, context: Context): Promise<void> => {
+	if (!Utils.isCloned(Utils.getWorkspace())) {
+		logger.error('Please checkout before run this action.');
+		return;
+	}
+
 	const verbose = Utils.getBoolValue(getInput('VERBOSE'));
-	await octokit.repos.createStatus({
-		...context.repo,
-		sha: getHeadSha(context),
-		state: 'pending',
-		context: STATUS_CONTEXT,
-	});
-	await (new GitHelper(logger)).checkout(Utils.getWorkspace(), context);
-	await canNpmPublish(resolve(Utils.getWorkspace(), getInput('PACKAGE_PATH')), {verbose}).then(async() => {
+	await canNpmPublish(getInput('PACKAGE_PATH') || undefined, {verbose}).then(async() => {
 		await octokit.repos.createStatus({
 			...context.repo,
 			sha: getHeadSha(context),

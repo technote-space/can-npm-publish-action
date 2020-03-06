@@ -35,7 +35,7 @@ jest.mock('can-npm-publish', () => ({
 	canNpmPublish: jest.fn(() => canNpmPublishResult()),
 }));
 
-testFs(true);
+const setExists = testFs(true);
 beforeEach(() => {
 	Logger.resetForTesting();
 });
@@ -51,9 +51,19 @@ describe('execute', () => {
 	testEnv(rootDir);
 	disableNetConnect(nock);
 
+	it('should do nothing', async() => {
+		const mockStdout = spyOnStdout();
+		setExists(false);
+
+		await execute(logger, getOctokit(), context);
+
+		stdoutCalledWith(mockStdout, [
+			'::error::Please checkout before run this action.',
+		]);
+	});
+
 	it('should be success', async() => {
-		const fn1        = jest.fn();
-		const fn2        = jest.fn();
+		const fn         = jest.fn();
 		const mockStdout = spyOnStdout();
 		const mockExec   = spyOnExec();
 
@@ -63,39 +73,24 @@ describe('execute', () => {
 		nock('https://api.github.com')
 			.persist()
 			.post('/repos/hello/world/statuses/0987654321', body => {
-				if (body.state === 'pending') {
-					fn1();
-				}
-				if (body.state === 'success') {
-					fn2();
-				}
+				expect(body.state).toBe('success');
+				fn();
 				return body;
 			})
 			.reply(201, () => getApiFixture(fixturesDir, 'repos.status.create'));
 
 		await execute(logger, getOctokit(), context);
 
-		expect(fn1).toBeCalledTimes(1);
-		expect(fn2).toBeCalledTimes(1);
-		execCalledWith(mockExec, [
-			'git remote add origin \'https://octocat:test@github.com/hello/world.git\' > /dev/null 2>&1 || :',
-			'git fetch --no-tags origin \'refs/pull/123/merge:refs/pull/123/merge\' || :',
-			'git checkout -qf 1234567890',
-		]);
+		expect(fn).toBeCalledTimes(1);
+		execCalledWith(mockExec, []);
 		stdoutCalledWith(mockStdout, [
-			'[command]git remote add origin',
-			'[command]git fetch --no-tags origin \'refs/pull/123/merge:refs/pull/123/merge\'',
-			'  >> stdout',
-			'[command]git checkout -qf 1234567890',
-			'  >> stdout',
 			'> passed',
 			'::set-output name=result::passed',
 		]);
 	});
 
 	it('should be failure', async() => {
-		const fn1        = jest.fn();
-		const fn2        = jest.fn();
+		const fn         = jest.fn();
 		const mockStdout = spyOnStdout();
 		const mockExec   = spyOnExec();
 
@@ -105,32 +100,18 @@ describe('execute', () => {
 		nock('https://api.github.com')
 			.persist()
 			.post('/repos/hello/world/statuses/0987654321', body => {
-				if (body.state === 'pending') {
-					fn1();
-				}
-				if (body.state === 'failure') {
-					expect(body.description).toBe('test error');
-					fn2();
-				}
+				expect(body.state).toBe('failure');
+				expect(body.description).toBe('test error');
+				fn();
 				return body;
 			})
 			.reply(201, () => getApiFixture(fixturesDir, 'repos.status.create'));
 
 		await execute(logger, getOctokit(), context);
 
-		expect(fn1).toBeCalledTimes(1);
-		expect(fn2).toBeCalledTimes(1);
-		execCalledWith(mockExec, [
-			'git remote add origin \'https://octocat:test@github.com/hello/world.git\' > /dev/null 2>&1 || :',
-			'git fetch --no-tags origin \'refs/pull/123/merge:refs/pull/123/merge\' || :',
-			'git checkout -qf 1234567890',
-		]);
+		expect(fn).toBeCalledTimes(1);
+		execCalledWith(mockExec, []);
 		stdoutCalledWith(mockStdout, [
-			'[command]git remote add origin',
-			'[command]git fetch --no-tags origin \'refs/pull/123/merge:refs/pull/123/merge\'',
-			'  >> stdout',
-			'[command]git checkout -qf 1234567890',
-			'  >> stdout',
 			'::error::test error',
 			'> failed',
 			'::set-output name=result::failed',
@@ -138,8 +119,7 @@ describe('execute', () => {
 	});
 
 	it('should be failure (without verbose)', async() => {
-		const fn1        = jest.fn();
-		const fn2        = jest.fn();
+		const fn         = jest.fn();
 		const mockStdout = spyOnStdout();
 		const mockExec   = spyOnExec();
 
@@ -150,32 +130,18 @@ describe('execute', () => {
 		nock('https://api.github.com')
 			.persist()
 			.post('/repos/hello/world/statuses/0987654321', body => {
-				if (body.state === 'pending') {
-					fn1();
-				}
-				if (body.state === 'failure') {
-					expect(body.description).toBe('test error');
-					fn2();
-				}
+				expect(body.state).toBe('failure');
+				expect(body.description).toBe('test error');
+				fn();
 				return body;
 			})
 			.reply(201, () => getApiFixture(fixturesDir, 'repos.status.create'));
 
 		await execute(logger, getOctokit(), context);
 
-		expect(fn1).toBeCalledTimes(1);
-		expect(fn2).toBeCalledTimes(1);
-		execCalledWith(mockExec, [
-			'git remote add origin \'https://octocat:test@github.com/hello/world.git\' > /dev/null 2>&1 || :',
-			'git fetch --no-tags origin \'refs/pull/123/merge:refs/pull/123/merge\' || :',
-			'git checkout -qf 1234567890',
-		]);
+		expect(fn).toBeCalledTimes(1);
+		execCalledWith(mockExec, []);
 		stdoutCalledWith(mockStdout, [
-			'[command]git remote add origin',
-			'[command]git fetch --no-tags origin \'refs/pull/123/merge:refs/pull/123/merge\'',
-			'  >> stdout',
-			'[command]git checkout -qf 1234567890',
-			'  >> stdout',
 			'> failed',
 			'::set-output name=result::failed',
 		]);
