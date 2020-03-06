@@ -1,5 +1,5 @@
 import { Context } from '@actions/github/lib/context';
-import { getInput } from '@actions/core';
+import { getInput, setOutput } from '@actions/core';
 import { Octokit } from '@octokit/rest';
 import { Utils } from '@technote-space/github-action-helper';
 import { canNpmPublish } from 'can-npm-publish';
@@ -13,6 +13,7 @@ export const execute = async(octokit: Octokit, context: Context): Promise<void> 
 			state: 'success',
 			context: 'can-npm-publish-action',
 		});
+		setOutput('result', 'passed');
 	}).catch(async error => {
 		if (verbose) {
 			console.error(error.message);
@@ -25,5 +26,6 @@ export const execute = async(octokit: Octokit, context: Context): Promise<void> 
 			description: error.message,
 			context: 'can-npm-publish-action',
 		});
+		setOutput('result', 'failed');
 	});
 };

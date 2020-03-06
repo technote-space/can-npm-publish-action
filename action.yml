@@ -17,9 +17,9 @@ inputs:
     default: 'true'
     required: false
 
-#outputs:
-#  result:
-#    description: action result
+outputs:
+  result:
+    description: action result (passed or failed)
 
 branding:
   icon: 'check-circle'
