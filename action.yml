@@ -5,10 +5,6 @@ description: GitHub Actions to check if it can be published to npm.
 author: technote-space
 
 inputs:
-  GITHUB_TOKEN:
-    description: Secret GitHub API token to use for making API requests.
-    default: ${{ github.token }}
-    required: true
   PACKAGE_PATH:
     description: directory or pacakge.json path.
     required: false
