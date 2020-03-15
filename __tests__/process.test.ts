@@ -7,7 +7,6 @@ import {
 	testFs,
 	disableNetConnect,
 	getApiFixture,
-	getOctokit,
 	generateContext,
 	spyOnStdout,
 	stdoutCalledWith,
@@ -55,7 +54,7 @@ describe('execute', () => {
 		const mockStdout = spyOnStdout();
 		setExists(false);
 
-		await execute(logger, getOctokit(), context);
+		await execute(logger);
 
 		stdoutCalledWith(mockStdout, [
 			'::error::Please checkout before run this action.',
@@ -63,87 +62,14 @@ describe('execute', () => {
 	});
 
 	it('should be success', async() => {
-		const fn         = jest.fn();
-		const mockStdout = spyOnStdout();
-		const mockExec   = spyOnExec();
+		canNpmPublishResult = (): Promise<void> => Promise.resolve();
 
-		process.env.INPUT_GITHUB_TOKEN = 'test';
-		canNpmPublishResult            = (): Promise<void> => Promise.resolve();
-
-		nock('https://api.github.com')
-			.persist()
-			.post('/repos/hello/world/statuses/0987654321', body => {
-				expect(body.state).toBe('success');
-				fn();
-				return body;
-			})
-			.reply(201, () => getApiFixture(fixturesDir, 'repos.status.create'));
-
-		await execute(logger, getOctokit(), context);
-
-		expect(fn).toBeCalledTimes(1);
-		execCalledWith(mockExec, []);
-		stdoutCalledWith(mockStdout, [
-			'> passed',
-			'::set-output name=result::passed',
-		]);
+		await expect(execute(logger)).resolves.not.toThrow();
 	});
 
 	it('should be failure', async() => {
-		const fn         = jest.fn();
-		const mockStdout = spyOnStdout();
-		const mockExec   = spyOnExec();
+		canNpmPublishResult = (): Promise<void> => Promise.reject(new Error('test error'));
 
-		process.env.INPUT_GITHUB_TOKEN = 'test';
-		canNpmPublishResult            = (): Promise<void> => Promise.reject(new Error('test error'));
-
-		nock('https://api.github.com')
-			.persist()
-			.post('/repos/hello/world/statuses/0987654321', body => {
-				expect(body.state).toBe('failure');
-				expect(body.description).toBe('test error');
-				fn();
-				return body;
-			})
-			.reply(201, () => getApiFixture(fixturesDir, 'repos.status.create'));
-
-		await execute(logger, getOctokit(), context);
-
-		expect(fn).toBeCalledTimes(1);
-		execCalledWith(mockExec, []);
-		stdoutCalledWith(mockStdout, [
-			'::error::test error',
-			'> failed',
-			'::set-output name=result::failed',
-		]);
-	});
-
-	it('should be failure (without verbose)', async() => {
-		const fn         = jest.fn();
-		const mockStdout = spyOnStdout();
-		const mockExec   = spyOnExec();
-
-		process.env.INPUT_GITHUB_TOKEN = 'test';
-		process.env.INPUT_VERBOSE      = '';
-		canNpmPublishResult            = (): Promise<void> => Promise.reject(new Error('test error'));
-
-		nock('https://api.github.com')
-			.persist()
-			.post('/repos/hello/world/statuses/0987654321', body => {
-				expect(body.state).toBe('failure');
-				expect(body.description).toBe('test error');
-				fn();
-				return body;
-			})
-			.reply(201, () => getApiFixture(fixturesDir, 'repos.status.create'));
-
-		await execute(logger, getOctokit(), context);
-
-		expect(fn).toBeCalledTimes(1);
-		execCalledWith(mockExec, []);
-		stdoutCalledWith(mockStdout, [
-			'> failed',
-			'::set-output name=result::failed',
-		]);
+		await expect(execute(logger)).rejects.toThrow('test error');
 	});
 });

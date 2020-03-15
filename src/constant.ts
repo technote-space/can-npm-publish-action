@@ -5,4 +5,3 @@ export const TARGET_EVENTS = {
 		'synchronize',
 	],
 };
-export const STATUS_CONTEXT       = 'Can npm publish action';

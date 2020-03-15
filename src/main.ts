@@ -1,7 +1,7 @@
 import { resolve } from 'path';
 import { setFailed } from '@actions/core';
 import { Context } from '@actions/github/lib/context';
-import { Logger, ContextHelper, Utils } from '@technote-space/github-action-helper';
+import { Logger, ContextHelper } from '@technote-space/github-action-helper';
 import { isTargetEvent } from '@technote-space/filter-github-action';
 import { TARGET_EVENTS } from './constant';
 import { execute } from './process';
@@ -16,7 +16,7 @@ const run = async(): Promise<void> => {
 		return;
 	}
 
-	await execute(logger, Utils.getOctokit(), context);
+	await execute(logger);
 };
 
 run().catch(error => {
