@@ -6,18 +6,14 @@ import {
 	testEnv,
 	testFs,
 	disableNetConnect,
-	getApiFixture,
 	generateContext,
 	spyOnStdout,
 	stdoutCalledWith,
-	spyOnExec,
-	execCalledWith,
 } from '@technote-space/github-action-test-helper';
 import { getHeadSha, execute } from '../src/process';
 
-const rootDir     = resolve(__dirname, '..');
-const fixturesDir = resolve(__dirname, 'fixtures');
-const context     = generateContext({owner: 'hello', repo: 'world', ref: 'refs/pull/123/merge', sha: '1234567890'}, {
+const rootDir = resolve(__dirname, '..');
+const context = generateContext({owner: 'hello', repo: 'world', ref: 'refs/pull/123/merge', sha: '1234567890'}, {
 	payload: {
 		'pull_request': {
 			head: {
@@ -27,7 +23,7 @@ const context     = generateContext({owner: 'hello', repo: 'world', ref: 'refs/p
 		},
 	},
 });
-const logger      = new Logger();
+const logger  = new Logger();
 
 let canNpmPublishResult = (): Promise<void> => Promise.resolve();
 jest.mock('can-npm-publish', () => ({
