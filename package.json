@@ -35,7 +35,7 @@
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
     "@technote-space/github-action-test-helper": "^0.3.8",
-    "@technote-space/release-github-actions-cli": "^1.6.3",
+    "@technote-space/release-github-actions-cli": "^1.6.4",
     "@types/jest": "^25.2.3",
     "@types/node": "^14.0.5",
     "@typescript-eslint/eslint-plugin": "^3.0.2",

@@ -777,18 +777,18 @@
     "@actions/github" "^2.2.0"
     js-yaml "^3.14.0"
 
-"@technote-space/release-github-actions-cli@^1.6.3":
-  version "1.6.3"
-  resolved "https://registry.yarnpkg.com/@technote-space/release-github-actions-cli/-/release-github-actions-cli-1.6.3.tgz#2ae4bd389055e74310088d1f83d06d040374c9bf"
-  integrity sha512-CpaVzffWzNFGUdO+dizYY2oq0KtVOOLCe4VdhnrCIOBSuRmfU2q7tRd8BRvO5diRzce4DKgakWpkiIh6tO4m3w==
+"@technote-space/release-github-actions-cli@^1.6.4":
+  version "1.6.4"
+  resolved "https://registry.yarnpkg.com/@technote-space/release-github-actions-cli/-/release-github-actions-cli-1.6.4.tgz#65a215ea9caf1de4dbcac687ea8f3431fcb74973"
+  integrity sha512-e16fx7vstq97phm59L9Vk2hNBE7M9waVRFgJvLlywSLlBz4cL3XFbLbew/oIfakzTizLUcAz3U6RJiW6rnFp9A==
   dependencies:
-    "@technote-space/release-github-actions" "^6.0.2"
+    "@technote-space/release-github-actions" "^6.0.3"
     commander "^5.1.0"
     cosmiconfig "^6.0.0"
     dotenv "^8.2.0"
-    js-yaml "^3.13.1"
+    js-yaml "^3.14.0"
 
-"@technote-space/release-github-actions@^6.0.2":
+"@technote-space/release-github-actions@^6.0.3":
   version "6.0.3"
   resolved "https://registry.yarnpkg.com/@technote-space/release-github-actions/-/release-github-actions-6.0.3.tgz#437db9aa424d15a4fa089525272cd2e0194864af"
   integrity sha512-NGMVimaj64eXVWvQpyr+FkHlZZcrX+bJU2MOLL4x5ngw7kvdGp85XzIdkpFPSUgZ6N2WhISomJNf8IKyAHE8Dw==
