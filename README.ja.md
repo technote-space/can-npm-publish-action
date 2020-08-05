@@ -65,6 +65,12 @@ jobs:
 |:---:|:---|:---:|
 | result | action result (passed or failed) | `passed` |
 
+## Action イベント詳細
+### 対象イベント
+| eventName | action |
+|:---:|:---:|
+|pull_request, pull_request_target|opened, reopened, synchronize|
+
 ## Author
 [GitHub (Technote)](https://github.com/technote-space)  
 [Blog](https://technote.space)
