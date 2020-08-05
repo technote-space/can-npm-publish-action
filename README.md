@@ -23,6 +23,8 @@ This action uses [can-npm-publish](https://github.com/azu/can-npm-publish).
   - [Failed](#failed)
 - [Options](#options)
 - [Outputs](#outputs)
+- [Action event details](#action-event-details)
+  - [Target events](#target-events)
 - [Author](#author)
 
 </details>
