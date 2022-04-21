@@ -1,6 +1,8 @@
 /* eslint-disable no-magic-numbers */
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import {resolve} from 'path';
 import nock from 'nock';
+import canNpmPublish from 'can-npm-publish';
 import {Logger} from '@technote-space/github-action-log-helper';
 import {
   testEnv,
@@ -24,11 +26,6 @@ const context = generateContext({owner: 'hello', repo: 'world', ref: 'refs/pull/
   },
 });
 const logger  = new Logger();
-
-let canNpmPublishResult = (): Promise<void> => Promise.resolve();
-jest.mock('can-npm-publish', () => ({
-  canNpmPublish: jest.fn(() => canNpmPublishResult()),
-}));
 
 const setExists = testFs(true);
 beforeEach(() => {
@@ -58,13 +55,13 @@ describe('execute', () => {
   });
 
   it('should be success', async() => {
-    canNpmPublishResult = (): Promise<void> => Promise.resolve();
+    vi.spyOn(canNpmPublish, 'canNpmPublish').mockResolvedValueOnce(undefined);
 
-    await expect(execute(logger)).resolves.not.toThrow();
+    await expect(execute(logger)).resolves.toBeUndefined();
   });
 
   it('should be failure', async() => {
-    canNpmPublishResult = (): Promise<void> => Promise.reject(new Error('test error'));
+    vi.spyOn(canNpmPublish, 'canNpmPublish').mockRejectedValueOnce(new Error('test error'));
 
     await expect(execute(logger)).rejects.toThrow('test error');
   });
