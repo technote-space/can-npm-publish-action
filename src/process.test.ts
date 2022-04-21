@@ -1,9 +1,9 @@
 /* eslint-disable no-magic-numbers */
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import {resolve} from 'path';
+import { resolve } from 'path';
 import nock from 'nock';
 import canNpmPublish from 'can-npm-publish';
-import {Logger} from '@technote-space/github-action-log-helper';
+import { Logger } from '@technote-space/github-action-log-helper';
 import {
   testEnv,
   testFs,
@@ -12,10 +12,10 @@ import {
   spyOnStdout,
   stdoutCalledWith,
 } from '@technote-space/github-action-test-helper';
-import {getHeadSha, execute} from '../src/process';
+import { getHeadSha, execute } from './process';
 
 const rootDir = resolve(__dirname, '..');
-const context = generateContext({owner: 'hello', repo: 'world', ref: 'refs/pull/123/merge', sha: '1234567890'}, {
+const context = generateContext({ owner: 'hello', repo: 'world', ref: 'refs/pull/123/merge', sha: '1234567890' }, {
   payload: {
     'pull_request': {
       head: {
