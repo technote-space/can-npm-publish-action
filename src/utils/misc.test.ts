@@ -1,6 +1,6 @@
-import { describe, expect, it } from 'vitest';
 import { isTargetEvent } from '@technote-space/filter-github-action';
 import { getContext, testEnv } from '@technote-space/github-action-test-helper';
+import { describe, expect, it } from 'vitest';
 import { TARGET_EVENTS } from '../constant';
 
 describe('isTargetEvent', () => {

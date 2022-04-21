@@ -1,7 +1,7 @@
 import type { Context } from '@actions/github/lib/context';
+import type { Logger } from '@technote-space/github-action-log-helper';
 import { getInput } from '@actions/core';
 import { Utils } from '@technote-space/github-action-helper';
-import type { Logger } from '@technote-space/github-action-log-helper';
 import canNpmPublish from 'can-npm-publish';
 
 export const getHeadSha = (context: Context): string => context.payload.pull_request?.head.sha ?? '';

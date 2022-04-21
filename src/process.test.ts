@@ -1,8 +1,5 @@
 /* eslint-disable no-magic-numbers */
-import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { resolve } from 'path';
-import nock from 'nock';
-import canNpmPublish from 'can-npm-publish';
 import { Logger } from '@technote-space/github-action-log-helper';
 import {
   testEnv,
@@ -12,6 +9,9 @@ import {
   spyOnStdout,
   stdoutCalledWith,
 } from '@technote-space/github-action-test-helper';
+import canNpmPublish from 'can-npm-publish';
+import nock from 'nock';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { getHeadSha, execute } from './process';
 
 const rootDir = resolve(__dirname, '..');
