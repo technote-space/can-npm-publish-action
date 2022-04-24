@@ -1,7 +1,6 @@
 /* eslint-disable no-magic-numbers */
-import {resolve} from 'path';
-import nock from 'nock';
-import {Logger} from '@technote-space/github-action-log-helper';
+import { resolve } from 'path';
+import { Logger } from '@technote-space/github-action-log-helper';
 import {
   testEnv,
   testFs,
@@ -10,10 +9,13 @@ import {
   spyOnStdout,
   stdoutCalledWith,
 } from '@technote-space/github-action-test-helper';
-import {getHeadSha, execute} from '../src/process';
+import canNpmPublish from 'can-npm-publish';
+import nock from 'nock';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { getHeadSha, execute } from './process';
 
 const rootDir = resolve(__dirname, '..');
-const context = generateContext({owner: 'hello', repo: 'world', ref: 'refs/pull/123/merge', sha: '1234567890'}, {
+const context = generateContext({ owner: 'hello', repo: 'world', ref: 'refs/pull/123/merge', sha: '1234567890' }, {
   payload: {
     'pull_request': {
       head: {
@@ -24,11 +26,6 @@ const context = generateContext({owner: 'hello', repo: 'world', ref: 'refs/pull/
   },
 });
 const logger  = new Logger();
-
-let canNpmPublishResult = (): Promise<void> => Promise.resolve();
-jest.mock('can-npm-publish', () => ({
-  canNpmPublish: jest.fn(() => canNpmPublishResult()),
-}));
 
 const setExists = testFs(true);
 beforeEach(() => {
@@ -58,13 +55,13 @@ describe('execute', () => {
   });
 
   it('should be success', async() => {
-    canNpmPublishResult = (): Promise<void> => Promise.resolve();
+    vi.spyOn(canNpmPublish, 'canNpmPublish').mockResolvedValueOnce(undefined);
 
-    await expect(execute(logger)).resolves.not.toThrow();
+    await expect(execute(logger)).resolves.toBeUndefined();
   });
 
   it('should be failure', async() => {
-    canNpmPublishResult = (): Promise<void> => Promise.reject(new Error('test error'));
+    vi.spyOn(canNpmPublish, 'canNpmPublish').mockRejectedValueOnce(new Error('test error'));
 
     await expect(execute(logger)).rejects.toThrow('test error');
   });
