@@ -55,7 +55,7 @@
     "@types/node": "^18.11.9",
     "@typescript-eslint/eslint-plugin": "^5.42.0",
     "@typescript-eslint/parser": "^5.42.0",
-    "@vitest/coverage-c8": "^0.24.4",
+    "@vitest/coverage-c8": "^0.24.5",
     "can-npm-publish": "^1.3.6",
     "eslint": "^8.26.0",
     "eslint-plugin-import": "^2.26.0",
@@ -65,7 +65,7 @@
     "pinst": "^3.0.0",
     "rollup": "^3.2.5",
     "typescript": "^4.8.4",
-    "vitest": "^0.24.4"
+    "vitest": "^0.24.5"
   },
   "publishConfig": {
     "access": "public"
