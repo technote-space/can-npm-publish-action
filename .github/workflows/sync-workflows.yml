@@ -12,9 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - uses: technote-space/auto-cancel-redundant-workflow@v1
-        with:
-          EXCLUDE_MERGED: 'true'
       - name: Set variables
         run: |
           echo "MINUTE=$(echo "${GITHUB_REPOSITORY}" | md5sum | tr -d -c 0-9 | xargs -I{} echo {}123456789 | cut -c 2-9 | xargs -I{} bash -c 'echo $((1{} % 60))')" >> $GITHUB_ENV
