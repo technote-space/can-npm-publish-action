@@ -35,14 +35,14 @@
     "release": "npm_config_yes=true npx @technote-space/release-github-actions-cli --test",
     "test": "yarn lint && yarn typecheck && yarn cover",
     "typecheck": "tsc --noEmit",
-    "update": "npm_config_yes=true npx npm-check-updates -u --timeout 100000 && yarn install && yarn upgrade && yarn audit"
+    "update": "npm_config_yes=true npx npm-check-updates -u --timeout 100000 -x @rollup/plugin-commonjs && yarn install && yarn upgrade && yarn audit"
   },
   "devDependencies": {
     "@actions/core": "^1.10.0",
     "@actions/github": "^5.1.1",
     "@commitlint/cli": "^17.4.2",
     "@commitlint/config-conventional": "^17.4.2",
-    "@rollup/plugin-commonjs": "^24.0.1",
+    "@rollup/plugin-commonjs": "^22.0.2",
     "@rollup/plugin-json": "^6.0.0",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@rollup/plugin-typescript": "^11.0.0",
